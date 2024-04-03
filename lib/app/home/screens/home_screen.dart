@@ -50,26 +50,27 @@ class HomeScreen extends StatelessWidget {
           if (state.errorMessage != null) {
             return _error(context, state.errorMessage);
           }
-          Widget child = Column(
-            children: [
-              Container(
-                color: context.watch<AppCubit>().state.darkTheme
-                    ? Colors.grey[800]
-                    : Colors.grey[200],
-                child: const HomeForm(horizontalPadding: 8, verticalPadding: 8),
-              ),
-              if (!state.filtering)
-                Expanded(
-                  flex: 3,
-                  child: _cardsList(),
+          return CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  children: [
+                    Container(
+                      color: context.watch<AppCubit>().state.darkTheme
+                          ? Colors.grey[800]
+                          : Colors.grey[200],
+                      child: const HomeForm(
+                        horizontalPadding: 8,
+                        verticalPadding: 8,
+                      ),
+                    ),
+                    Expanded(child: _cardsList()),
+                  ],
                 ),
+              )
             ],
           );
-          if (state.filtering) {
-            return SingleChildScrollView(child: child);
-          } else {
-            return child;
-          }
         }
       },
     );
@@ -90,20 +91,26 @@ class HomeScreen extends StatelessWidget {
   Widget _cardsList() {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (BuildContext context, HomeState state) {
+        if (state.loadingCards) {
+          return _loading();
+        }
         if (state.cards == null || state.cardErrorMessage != null) {
           return _error(context, state.cardErrorMessage);
         }
         if (state.cards!.isEmpty) {
           return _empty();
         }
-        return ListView.separated(
-          itemCount: state.cards!.length,
-          itemBuilder: (BuildContext context, int index) {
-            return CardItem(card: state.cards![index]);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider();
-          },
+        return SizedBox(
+          height: 1,
+          child: ListView.separated(
+            itemCount: state.cards!.length,
+            itemBuilder: (BuildContext context, int index) {
+              return CardItem(card: state.cards![index]);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider();
+            },
+          ),
         );
       },
     );
@@ -122,7 +129,13 @@ class HomeScreen extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: 8),
-          Text(cardErrorMessage ?? 'No cards found.'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Text(
+              cardErrorMessage ?? 'No cards found.',
+              textAlign: TextAlign.center,
+            ),
+          ),
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: context.read<HomeCubit>().getHomeInfo,

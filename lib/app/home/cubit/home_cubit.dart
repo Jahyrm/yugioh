@@ -52,6 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
           cardErrorMessage: cardsResponse.$2,
           filtering: false,
           loadingHome: false,
+          forceNullErrorMessage: true,
         ),
       );
     } catch (e) {
@@ -71,9 +72,19 @@ class HomeCubit extends Cubit<HomeState> {
     List<String>? races,
     List<Attribute>? attributes,
     Archetype? archetype,
+    bool hideFilter = false,
   }) async {
     try {
-      emit(state.copyWith(loadingCards: true, cards: null));
+      emit(
+        state.copyWith(
+          loadingCards: true,
+          cards: null,
+          cardErrorMessage: null,
+          forceNullCards: true,
+          forceNullCardErrorMessage: true,
+          filtering: hideFilter ? false : state.filtering,
+        ),
+      );
       var cardsResponse = await _cardRepository.getCards(
         fname: fname,
         type: types,

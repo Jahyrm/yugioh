@@ -7,6 +7,8 @@ import 'package:yugioh/core/repositories/card_repository.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  static const String routeName = '/';
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(

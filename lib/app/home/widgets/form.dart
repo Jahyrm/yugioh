@@ -79,6 +79,10 @@ class _HomeFormState extends State<HomeForm> {
           value: state.selectedArchetype,
           onChanged: (value) {
             context.read<HomeCubit>().setArchetype(value);
+            context.read<HomeCubit>().getCards(
+                  archetype: value,
+                  fname: state.nameTxtController.text,
+                );
           },
           items: [
             const DropdownMenuItem(
@@ -105,7 +109,7 @@ class _HomeFormState extends State<HomeForm> {
 
   Widget _searchByNameField() {
     return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
+      builder: (BuildContext context, HomeState state) {
         return Form(
           key: state.nameFormKey,
           autovalidateMode: state.autovalidateName
@@ -139,7 +143,7 @@ class _HomeFormState extends State<HomeForm> {
                           archetype: state.selectedArchetype,
                         );
                   } else {
-                    context.read<HomeCubit>().setAutovalidateName(false);
+                    context.read<HomeCubit>().setAutovalidateName(true);
                   }
                 },
                 icon: const Icon(Icons.search),
@@ -549,6 +553,7 @@ class _HomeFormState extends State<HomeForm> {
                         def: def,
                         level: level,
                         attributes: state.selectedAttributes,
+                        hideFilter: true,
                       );
                 } else {
                   context.read<HomeCubit>().setAutovalidateForm(true);

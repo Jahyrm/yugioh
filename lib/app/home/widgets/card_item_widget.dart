@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yugioh/app/card_details/screens/card_details_screen.dart';
+import 'package:yugioh/app/card_details/screens/card_details_page.dart';
 import 'package:yugioh/core/models/card.dart';
 import 'package:yugioh/core/utils/utils.dart';
 
@@ -23,8 +23,8 @@ class CardItem extends StatelessWidget {
             colors: [
               Utils.getBackgroundCardColors(card).$1,
               Utils.getBackgroundCardColors(card).$1,
-              // Colors.grey[200]!,
               Utils.getBackgroundCardColors(card).$1.withOpacity(0.85),
+              Utils.getBackgroundCardColors(card).$2.withOpacity(0.85),
               Utils.getBackgroundCardColors(card).$2,
               Utils.getBackgroundCardColors(card).$2,
             ],
@@ -33,21 +33,40 @@ class CardItem extends StatelessWidget {
           ),
         ),
         child: ListTile(
+          dense: true,
           onTap: () {
             Navigator.of(context).pushNamed(
-              CardDetailsScreen.routeName,
+              CardDetailsPage.routeName,
               arguments: card,
             );
           },
           leading: Image.asset('assets/images/${card.type}.jpg'),
-          title: Text(card.name ?? ''),
-          subtitle: Text(card.type ?? ''),
-          trailing: const Row(
+          title: Text(
+            card.name ?? '',
+            style: TextStyle(
+              color: Utils.getForegroundColor(card),
+            ),
+          ),
+          subtitle: Text(
+            card.type ?? '',
+            style: TextStyle(
+              color: Utils.getForegroundColor(card),
+            ),
+          ),
+          trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('See Details'),
-              SizedBox(width: 2),
-              Icon(Icons.arrow_forward_ios),
+              Text(
+                'See Details',
+                style: TextStyle(
+                  color: Utils.getForegroundColor(card),
+                ),
+              ),
+              const SizedBox(width: 2),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Utils.getForegroundColor(card),
+              ),
             ],
           ),
         ),

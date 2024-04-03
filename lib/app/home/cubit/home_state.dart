@@ -124,11 +124,15 @@ final class HomeState extends Equatable {
     bool forceNullSelectedAttackOperator = false,
     bool forceNullSelectedDefenseOperator = false,
     bool forceNullSelectedLevelOpeerator = false,
+    bool forceNullCardErrorMessage = false,
+    bool forceNullCards = false,
+    bool forceNullErrorMessage = false,
   }) {
     return HomeState(
-      cards: cards ?? this.cards,
+      cards: cards ?? (forceNullCards ? null : this.cards),
       archetypes: archetypes ?? this.archetypes,
-      cardErrorMessage: cardErrorMessage ?? this.cardErrorMessage,
+      cardErrorMessage: cardErrorMessage ??
+          (forceNullCardErrorMessage ? null : this.cardErrorMessage),
       filtering: filtering ?? this.filtering,
       selectedArchetype: selectedArchetype ??
           (forceNullSelectedArchetype ? null : this.selectedArchetype),
@@ -159,7 +163,8 @@ final class HomeState extends Equatable {
           selectedStringAttributes ?? this.selectedStringAttributes,
       loadingHome: loadingHome ?? this.loadingHome,
       loadingCards: loadingCards ?? this.loadingCards,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage:
+          errorMessage ?? (forceNullErrorMessage ? null : this.errorMessage),
       refresh: refresh ?? this.refresh,
     );
   }
