@@ -9,6 +9,8 @@ import 'package:yugioh/core/repositories/card_repository.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
+  /// Este Cubit requiere del repositorio de cartas, ademas le asignamos el
+  /// estado inicial con el que empieza la app.
   HomeCubit(this._cardRepository)
       : super(
           HomeState(
@@ -34,6 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   final CardRepository _cardRepository;
 
+  /// Método que obtiene la información que se muestra en la pantalla de inicio.
   void getHomeInfo() async {
     try {
       var archsResponse = await _cardRepository.getArchetypes();
@@ -63,6 +66,8 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  /// Método que actualiza la lista de cartas dependiendo de los parámentros de
+  /// búsqueda.
   void getCards({
     String? fname,
     List<CardType>? types,
@@ -109,6 +114,8 @@ class HomeCubit extends Cubit<HomeState> {
       ));
     }
   }
+
+  /* Los siguientes son métodos que nos permiten interactuar con el estado */
 
   void setFiltering(bool bool) {
     emit(state.copyWith(filtering: bool));

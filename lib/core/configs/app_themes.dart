@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// Aquí podríamos editar y configurar los temas claro y oscuro de la app
 class AppThemes {
   static ThemeData lightBaseTheme = ThemeData.light(useMaterial3: false);
 
+  /// Modificar aquí
   static ThemeData lightTheme = lightBaseTheme.copyWith(
     textTheme: GoogleFonts.latoTextTheme(),
-    /*
-    primaryColorDark: const Color(0xFF0097A7),
-    primaryColorLight: const Color(0xFFB2EBF2),
-    primaryColor: const Color(0xFF00BCD4),
-    colorScheme: const ColorScheme.light(secondary: Color(0xFF009688)),
-    scaffoldBackgroundColor: const Color(0xFFE0F2F1),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    ),
-    */
   );
 
   static ThemeData darkBaseTheme = ThemeData.dark(useMaterial3: false);
 
+  /// Modificar aquí
   static ThemeData darkTheme = darkBaseTheme.copyWith(
     textTheme: TextTheme(
       displayLarge:
@@ -53,13 +44,6 @@ class AppThemes {
       labelSmall:
           GoogleFonts.lato(textStyle: darkBaseTheme.textTheme.labelSmall),
     ),
-    /*
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    ),
-    */
   );
 
   static ThemeData lightDevTheme = lightTheme.copyWith(

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:yugioh/core/models/card.dart';
 
 class Utils {
-  /// Hide keyboard if it is shown
+  /// Oculta el teclado si se muestra
   static void hideKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  /// Get the real name of LinkMarker enum
+  /// Obtiene el nombre real de un enum "LinkMarker"
   static String linkMarkerToString(LinkMarker linkMarker) {
     int? index;
     for (int i = 0; i < linkMarker.name.length; i++) {
@@ -27,6 +27,10 @@ class Utils {
     }
   }
 
+  /// Nos retorna los 2 colores de fondo de una carta. El primer color es el
+  /// color de arriba y el segundo color es el color de abajo. Si la carta es de
+  /// un solo color, ambos colore serán iguales. Los colores sugeridos se basan
+  /// en: [https://yugioh.fandom.com/wiki/Card_colors]
   static (Color, Color) getBackgroundCardColors(CardModel card) {
     if (card.name == 'Slifer the Sky Dragon') {
       return (const Color(0xFFFB0007), const Color(0xFFFB0007));
@@ -97,6 +101,9 @@ class Utils {
     }
   }
 
+  /// Debido a que cada tipo de carta tiene un fondo diferente, este método
+  /// retorna el color que debería usar el texto, para que se pueda observar.
+  /// Los colores sugeridos se basan en: [https://yugioh.fandom.com/wiki/Card_colors]
   static Color getForegroundColor(CardModel card) {
     if (card.name == 'Slifer the Sky Dragon') {
       return Colors.black;

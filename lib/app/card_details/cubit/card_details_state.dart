@@ -1,5 +1,6 @@
 part of 'card_details_cubit.dart';
 
+/// Estado de la pantalla de detalles de una carta.
 class CardDetailsState extends Equatable {
   const CardDetailsState({
     this.loading = true,

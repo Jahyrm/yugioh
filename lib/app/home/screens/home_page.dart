@@ -11,6 +11,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Proveemos el repositorio de las cartas para que sea accesible en el bloc
+    /// de la pantalla de inicio. Adicionalmente empezamos la obtención de
+    /// información de la pantalla de inicio, llamando a la función getHomeInfo.
     return RepositoryProvider(
       create: (context) => CardRepository(),
       child: BlocProvider(

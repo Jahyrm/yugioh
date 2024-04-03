@@ -12,7 +12,10 @@ enum CardType { monster, spell, trap, skill, token }
 
 enum Languages { english, french, german, portuguese, italian }
 
+/// Este es el repositorio de cartas, aquí se realizan las peticiones a la API
+/// y contiene información necesaria para interactuar con la API.
 class CardRepository {
+  /// Información obtenida de: https://db.ygoprodeck.com/api-guide/
   final List<String> monsterTypes = [
     'Effect Monster', // si
     'Flip Effect Monster', // si
@@ -41,6 +44,7 @@ class CardRepository {
     'XYZ Pendulum Effect Monster', // si
   ];
 
+  /// Información obtenida de: https://db.ygoprodeck.com/api-guide/
   static final List<String> monsterRaces = [
     'Aqua',
     'Beast',
@@ -69,6 +73,7 @@ class CardRepository {
     'Zombie',
   ];
 
+  /// Información obtenida de: https://db.ygoprodeck.com/api-guide/
   static final List<String> spellRaces = [
     'Normal',
     'Field',
@@ -78,9 +83,10 @@ class CardRepository {
     'Ritual'
   ];
 
+  /// Información obtenida de: https://db.ygoprodeck.com/api-guide/
   static final List<String> trapRaces = ['Normal', 'Continuous', 'Counter'];
 
-  /// Get all archetypes
+  /// Obtiene todos los "archetypes"
   Future<(List<Archetype>?, String?)> getArchetypes() async {
     List<Archetype>? archetypes;
     String? message;
@@ -97,7 +103,11 @@ class CardRepository {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
-        debugPrint(e.response!.data);
+        if (e.response!.data is String?) {
+          debugPrint(e.response!.data);
+        } else {
+          debugPrint(jsonEncode(e.response!.data));
+        }
         try {
           CardsResponse response = CardsResponse.fromJson(e.response!.data!);
           message = response.error;
@@ -120,8 +130,8 @@ class CardRepository {
     return (archetypes, message);
   }
 
-  /// Endpoint to get cards from the API, it can be filtered by several
-  /// parameters. See doc: https://ygoprodeck.com/api-guide/
+  /// Endpoint para obtener las cartas desde la API, se puede filtrar por varios
+  /// parámetros. Ver documentación: https://ygoprodeck.com/api-guide/
   Future<(List<CardModel>?, String?)> getCards({
     List<String>? name,
     String? fname,

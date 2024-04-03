@@ -1,5 +1,6 @@
 part of 'home_cubit.dart';
 
+/// Estado de la pantalla de inicio.
 final class HomeState extends Equatable {
   const HomeState({
     this.cards,

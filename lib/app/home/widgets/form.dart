@@ -11,6 +11,7 @@ import 'package:yugioh/core/widgets/icon_button.dart';
 
 enum FieldType { attack, defense, level }
 
+/// Formulario para consultar cartas que se encuentra en la pantalla de inicio.
 class HomeForm extends StatefulWidget {
   const HomeForm({
     super.key,

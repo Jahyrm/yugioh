@@ -13,6 +13,7 @@ class CardDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Proveemos el repositorio y el bloc respectivo a las pantalla de detalles
     return RepositoryProvider(
       create: (context) => CardRepository(),
       child: BlocProvider<CardDetailsCubit>(

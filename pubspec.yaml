@@ -27,14 +27,35 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.13.1
+
   flutter_lints: ^2.0.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon-1024x1024.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: false
+  windows:
+    generate: false
+  macos:
+    generate: false
 
 flutter:
   uses-material-design: true
 
   assets:
+    # Los tipos de cartas se descargaron desde el api: https://images.ygoprodeck.com/images/cards/icons/{$cardType}.jpg
     - assets/images/
+    # Los atributos se descargaron de https://yugioh.fandom.com/wiki/Attribute
     - assets/images/attributes/
+    # https://ygoprodeck.com/wp-content/uploads/2017/01/level.png
+    # https://yugioh.fandom.com/wiki/Negative_Level
+    # https://yugioh.fandom.com/wiki/Rank
     - assets/images/levels/
+    # Diseñados por mi
     - assets/images/linkarrows/
+    # Los tipos de cartas se descargaron desde el api: https://images.ygoprodeck.com/images/cards/icons/race/{$cardRace}.png
     - assets/images/race/

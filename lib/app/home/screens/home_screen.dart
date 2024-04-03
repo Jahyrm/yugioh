@@ -6,6 +6,7 @@ import 'package:yugioh/app/home/widgets/form.dart';
 import 'package:yugioh/core/blocs/app_cubit/app_cubit.dart';
 import 'package:yugioh/core/configs/global_vars.dart';
 
+/// Diseño de la pantalla de inicio
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 

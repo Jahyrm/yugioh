@@ -1,5 +1,6 @@
 part of 'app_cubit.dart';
 
+/// Estados de la app.
 @immutable
 sealed class AppState {
   const AppState({this.darkTheme = false});

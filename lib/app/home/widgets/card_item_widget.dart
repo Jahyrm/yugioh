@@ -3,6 +3,7 @@ import 'package:yugioh/app/card_details/screens/card_details_page.dart';
 import 'package:yugioh/core/models/card.dart';
 import 'package:yugioh/core/utils/utils.dart';
 
+/// Diseño de como se muestra una cata en la lista del inicio.
 class CardItem extends StatelessWidget {
   const CardItem({super.key, required this.card});
 

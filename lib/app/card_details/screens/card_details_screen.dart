@@ -7,6 +7,7 @@ import 'package:yugioh/core/configs/global_vars.dart';
 import 'package:yugioh/core/models/card.dart';
 import 'package:yugioh/core/utils/utils.dart';
 
+/// Diseño visual de la pantalla de detalles de una carta
 class CardDetailsScreen extends StatelessWidget {
   const CardDetailsScreen({super.key, required this.card});
   final CardModel card;
@@ -26,6 +27,7 @@ class CardDetailsScreen extends StatelessWidget {
     );
   }
 
+  /// Botón del appbar que nos permite cambiar el tema
   BlocBuilder _themeSwitcher() {
     return BlocBuilder<AppCubit, AppState>(
       builder: (BuildContext context, AppState state) {
@@ -37,7 +39,8 @@ class CardDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _frame() {
+  /// Construimos un marca con el color respectivo de cada carta
+  Column _frame() {
     return Column(
       children: [
         _verticalSide(Utils.getBackgroundCardColors(card).$1),
