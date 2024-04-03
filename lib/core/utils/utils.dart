@@ -152,6 +152,23 @@ class Utils {
         case FNameType.skill:
           return Colors.white;
         case null:
+          if (card.type == 'Pendulum Effect Fusion Monster') {
+            return Colors.white;
+          } else if (card.type == 'Pendulum Effect Monster') {
+            return Colors.black;
+          } else if (card.type == 'Pendulum Effect Ritual Monster') {
+            return Colors.black;
+          } else if (card.type == 'Pendulum Flip Effect Monster') {
+            return Colors.black;
+          } else if (card.type == 'Pendulum Normal Monster') {
+            return Colors.black;
+          } else if (card.type == 'Pendulum Tuner Effect Monster') {
+            return Colors.black;
+          } else if (card.type == 'Synchro Pendulum Effect Monster') {
+            return Colors.black;
+          } else if (card.type == 'XYZ Pendulum Effect Monster') {
+            return Colors.white;
+          }
           return Colors.black;
       }
     }

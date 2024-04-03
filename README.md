@@ -64,13 +64,13 @@ Un paquete Flutter para usar fuentes de fonts.google.com.
 
 ## Screenshots
 
-![screenshot](https://jahyrm.com/files/b_f_login_ss_1.gif)
+![screenshot](https://jahyrm.com/files/yugioh_ss_1.gif)
 
-![screenshot](https://jahyrm.com/files/b_f_login_ss_2.gif)
+![screenshot](https://jahyrm.com/files/yugioh_ss_2.gif)
 
 ## Descarga Apk
 
-[https://jahyrm.com/files/bloc_firebase_login.apk](https://jahyrm.com/files/bloc_firebase_login.apk)
+[https://jahyrm.com/files/yugioh.apk](https://jahyrm.com/files/yugioh.apk)
 
 ## Recursos Utilizados
 

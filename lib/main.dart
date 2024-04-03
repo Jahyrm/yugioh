@@ -5,7 +5,7 @@ import 'package:yugioh/app/main/screens/main_page.dart';
 import 'package:yugioh/core/configs/global_vars.dart';
 import 'package:yugioh/core/services/yugioh_cards_api.dart';
 
-Future<void> mainApp() async {
+Future<void> main() async {
   /// Para asegurarnos que todo se inicializa antes de empezar la app
   WidgetsFlutterBinding.ensureInitialized();
 
