@@ -1,15 +1,18 @@
+import 'package:collection/collection.dart';
+import 'package:yugioh/core/utils/utils.dart';
+
 class CardsResponse {
   String? error;
-  List<Card>? cards;
+  List<CardModel>? cards;
 
   CardsResponse({this.error, this.cards});
 
   CardsResponse.fromJson(Map<String, dynamic> json) {
     error = json['error'];
     if (json['data'] != null) {
-      cards = <Card>[];
+      cards = <CardModel>[];
       json['data'].forEach((v) {
-        cards!.add(Card.fromJson(v));
+        cards!.add(CardModel.fromJson(v));
       });
     }
   }
@@ -24,11 +27,44 @@ class CardsResponse {
   }
 }
 
-class Card {
+enum FNameType {
+  normal,
+  effect,
+  ritual,
+  fusion,
+  synchro,
+  xyz,
+  link,
+  normalPendulum,
+  effectPendulum,
+  ritualPendulum,
+  fusionPendulum,
+  synchroPendulum,
+  xyzPendulum,
+  spell,
+  trap,
+  token,
+  skill,
+}
+
+enum Attribute { dark, earth, fire, light, water, wind, divine }
+
+enum LinkMarker {
+  topLetf,
+  top,
+  topRight,
+  left,
+  right,
+  bottomLeft,
+  bottom,
+  bottomRight
+}
+
+class CardModel {
   int? id;
   String? name;
   String? type;
-  String? frameType;
+  FNameType? frameType;
   String? desc;
   String? race;
   String? archetype;
@@ -39,15 +75,15 @@ class Card {
   int? atk;
   int? def;
   int? level;
-  String? attribute;
+  Attribute? attribute;
   String? pendDesc;
   String? monsterDesc;
   int? scale;
   int? linkval;
-  List<String>? linkmarkers;
+  List<LinkMarker>? linkmarkers;
   BanlistInfo? banlistInfo;
 
-  Card(
+  CardModel(
       {this.id,
       this.name,
       this.type,
@@ -70,11 +106,27 @@ class Card {
       this.linkmarkers,
       this.banlistInfo});
 
-  Card.fromJson(Map<String, dynamic> json) {
+  CardModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     type = json['type'];
-    frameType = json['frameType'];
+    if (json['frameType'] != null) {
+      if ((json['frameType'] as String).contains('_')) {
+        List<String> vector = json['frameType'].split('_');
+        vector[0] = vector[0].toLowerCase();
+        vector[1] = vector[1][0].toUpperCase() + vector[1].substring(1);
+        frameType = FNameType.values.firstWhereOrNull(
+          (e) => e.name == vector.join(''),
+        );
+      } else {
+        frameType = FNameType.values.firstWhereOrNull(
+          (e) => e.name == json['frameType'],
+        );
+      }
+    }
+    frameType = json['frameType'] != null
+        ? FNameType.values.firstWhereOrNull((e) => e.name == json['frameType'])
+        : null;
     desc = json['desc'];
     race = json['race'];
     archetype = json['archetype'];
@@ -100,12 +152,35 @@ class Card {
     atk = json['atk'];
     def = json['def'];
     level = json['level'];
-    attribute = json['attribute'];
+    attribute = json['attribute'] != null
+        ? Attribute.values
+            .firstWhereOrNull((e) => e.name == json['attribute'].toLowerCase())
+        : null;
     pendDesc = json['pend_desc'];
     monsterDesc = json['monster_desc'];
     scale = json['scale'];
     linkval = json['linkval'];
-    linkmarkers = json['linkmarkers'].cast<String>();
+    if (json['linkmarkers'] != null) {
+      List<String> markersStrings = json['linkmarkers'].cast<String>();
+      linkmarkers = [];
+      for (String stringMarker in markersStrings) {
+        String realStringValue;
+        if (stringMarker.contains('-')) {
+          List<String> vector = stringMarker.split('-');
+          vector[0] = vector[0].toLowerCase();
+          realStringValue = vector.join('');
+        } else {
+          realStringValue = stringMarker.toLowerCase();
+        }
+        LinkMarker? marker = LinkMarker.values
+            .firstWhereOrNull((e) => e.name == realStringValue);
+        if (marker != null) {
+          linkmarkers!.add(marker);
+        }
+      }
+    } else {
+      linkmarkers = null;
+    }
     banlistInfo = json['banlist_info'] != null
         ? BanlistInfo.fromJson(json['banlist_info'])
         : null;
@@ -116,7 +191,7 @@ class Card {
     data['id'] = id;
     data['name'] = name;
     data['type'] = type;
-    data['frameType'] = frameType;
+    data['frameType'] = frameType?.name.replaceAll('P', '_p');
     data['desc'] = desc;
     data['race'] = race;
     data['archetype'] = archetype;
@@ -133,12 +208,12 @@ class Card {
     data['atk'] = atk;
     data['def'] = def;
     data['level'] = level;
-    data['attribute'] = attribute;
+    data['attribute'] = attribute?.name.toUpperCase();
     data['pend_desc'] = pendDesc;
     data['monster_desc'] = monsterDesc;
     data['scale'] = scale;
     data['linkval'] = linkval;
-    data['linkmarkers'] = linkmarkers;
+    data['linkmarkers'] = linkmarkers?.map(Utils.linkMarkerToString).toList();
     if (banlistInfo != null) {
       data['banlist_info'] = banlistInfo!.toJson();
     }

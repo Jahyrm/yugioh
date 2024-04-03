@@ -8,7 +8,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<AppCubit>(
       create: (context) => AppCubit(),
       child: const MainScreen(),
     );

@@ -12,7 +12,8 @@ class HomePage extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => CardRepository(),
       child: BlocProvider(
-        create: (context) => HomeCubit(context.read<CardRepository>()),
+        create: (context) =>
+            HomeCubit(context.read<CardRepository>())..getHomeInfo(),
         child: const HomeScreen(),
       ),
     );

@@ -1,5 +1,5 @@
 class GlobalVars {
-  static const String appName = 'Yu-Gi-Oh! App';
+  static const String appName = 'Yu-Gi-Oh! Cards App';
   static const String baseUrl = 'https://db.ygoprodeck.com';
   static const String apiUrl = '$baseUrl/api/v7';
   static const bool debugPrints = true;
