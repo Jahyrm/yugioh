@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:yugioh/core/models/archetype.dart';
 import 'package:yugioh/core/models/card.dart';
@@ -86,16 +85,6 @@ class CardRepository {
     List<Archetype>? archetypes;
     String? message;
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      return (
-        ArchetypeResponse.fromJson(
-          jsonDecode(
-            await rootBundle.loadString('assets/json/min_archetypes.json'),
-          ),
-        ).archetypes,
-        null
-      );
-      /*
       Response<List<dynamic>?> apiResponse = await dio.get(
         '/archetypes.php',
       );
@@ -104,7 +93,6 @@ class CardRepository {
       } else {
         message = 'An error has occurred, check your internet connection.';
       }
-      */
     } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
@@ -221,15 +209,6 @@ class CardRepository {
           queryParams['language'] = 'it';
         }
       }
-      /*
-      await Future.delayed(const Duration(seconds: 2));
-      return (
-        CardsResponse.fromJson(
-          jsonDecode(await rootBundle.loadString('assets/json/min_cards.json')),
-        ).cards,
-        null
-      );
-      */
       Response<Map<String, dynamic>?> apiResponse = await dio.get(
         '/cardinfo.php',
         queryParameters: queryParams,
