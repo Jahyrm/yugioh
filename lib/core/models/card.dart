@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:yugioh/core/utils/utils.dart';
 
 class CardsResponse {
@@ -7,12 +8,16 @@ class CardsResponse {
 
   CardsResponse({this.error, this.cards});
 
-  CardsResponse.fromJson(Map<String, dynamic> json) {
+  CardsResponse.fromJson(Map<String, dynamic> json,
+      {bool allowBanneds = false}) {
     error = json['error'];
     if (json['data'] != null) {
       cards = <CardModel>[];
       json['data'].forEach((v) {
-        cards!.add(CardModel.fromJson(v));
+        CardModel card = CardModel.fromJson(v);
+        if (allowBanneds || card.banlistInfo == null) {
+          cards!.add(card);
+        }
       });
     }
   }
